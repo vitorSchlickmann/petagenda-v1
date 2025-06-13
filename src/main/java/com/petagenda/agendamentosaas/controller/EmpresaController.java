@@ -16,7 +16,7 @@ import com.petagenda.agendamentosaas.model.Empresa;
 import com.petagenda.agendamentosaas.service.EmpresaService;
 
 @RestController
-@RequestMapping("/api/empresa")
+@RequestMapping("/api/empresas")
 @CrossOrigin(origins = "*")
 public class EmpresaController {
     
