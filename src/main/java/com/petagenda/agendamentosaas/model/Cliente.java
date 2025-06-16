@@ -30,6 +30,7 @@ public class Cliente {
     @Column(unique = true)
     private String cpf;
     private String email;
+    private String senha;
     private String telefone;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Pet> pets;

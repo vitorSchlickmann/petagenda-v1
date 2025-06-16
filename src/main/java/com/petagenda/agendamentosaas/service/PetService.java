@@ -21,7 +21,7 @@ public class PetService {
     }
 
     public List<Pet> listarPorCliente(Long clienteId) {
-        return petRepository.findByCliente(clienteId);
+        return petRepository.findByClienteId(clienteId);
     }
 
     public List<Pet> listarTodos() {
