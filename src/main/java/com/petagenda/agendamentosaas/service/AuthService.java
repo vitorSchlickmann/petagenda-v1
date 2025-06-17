@@ -5,7 +5,9 @@ import com.petagenda.agendamentosaas.model.Empresa;
 import com.petagenda.agendamentosaas.repository.ClienteRepository;
 import com.petagenda.agendamentosaas.repository.EmpresaRepository;
 import com.petagenda.agendamentosaas.security.JwtUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -33,6 +35,6 @@ public class AuthService {
             return jwtUtil.generateToken(email, "CLIENTE");
         }
 
-        throw new RuntimeException("Login inválido");
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email ou senha inválidos");
     }
 }

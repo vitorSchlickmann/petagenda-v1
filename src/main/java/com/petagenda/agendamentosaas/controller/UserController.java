@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -44,14 +45,26 @@ public class UserController {
         if ("EMPRESA".equals(role)) {
             Optional<Empresa> empresaOpt = empresaRepo.findByEmail(email);
             if (empresaOpt.isPresent()) {
-                return ResponseEntity.ok(empresaOpt.get());
+                Empresa empresa = empresaOpt.get();
+                return ResponseEntity.ok(Map.of(
+                        "id", empresa.getId(),
+                        "nome", empresa.getNome(),
+                        "email", empresa.getEmail(),
+                        "tipoUsuario", "EMPRESA"
+                ));
             } else {
                 return ResponseEntity.status(404).body("Empresa não encontrada.");
             }
         } else if ("CLIENTE".equals(role)) {
             Optional<Cliente> clienteOpt = clienteRepo.findByEmail(email);
             if (clienteOpt.isPresent()) {
-                return ResponseEntity.ok(clienteOpt.get());
+                Cliente cliente = clienteOpt.get();
+                return ResponseEntity.ok(Map.of(
+                        "id", cliente.getId(),
+                        "nome", cliente.getNome(),
+                        "email", cliente.getEmail(),
+                        "tipoUsuario", "CLIENTE"
+                ));
             } else {
                 return ResponseEntity.status(404).body("Cliente não encontrado.");
             }
