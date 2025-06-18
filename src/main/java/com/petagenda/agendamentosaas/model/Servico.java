@@ -1,5 +1,7 @@
 package com.petagenda.agendamentosaas.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,5 +30,6 @@ public class Servico {
     
     @ManyToOne
     @JoinColumn(name = "empresa_id")
+    @JsonBackReference
     private Empresa empresa;
 }

@@ -1,5 +1,7 @@
 package com.petagenda.agendamentosaas.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,9 +27,10 @@ public class Pet {
     private String nome;
     private String especie;
     private String raca;
-    
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonBackReference
     private Cliente cliente;
-    
+
 }

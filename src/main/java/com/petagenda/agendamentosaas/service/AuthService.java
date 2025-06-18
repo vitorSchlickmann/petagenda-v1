@@ -25,16 +25,33 @@ public class AuthService {
     }
 
     public String login(String email, String senha) {
+        System.out.println("Tentando login com Email: " + email + ", Senha: " + senha);
+
         Optional<Empresa> empresaOpt = empresaRepo.findByEmail(email);
-        if (empresaOpt.isPresent() && empresaOpt.get().getSenha().equals(senha)) {
-            return jwtUtil.generateToken(email, "EMPRESA");
+        if (empresaOpt.isPresent()) {
+            System.out.println("Empresa encontrada: " + empresaOpt.get().getEmail());
+            System.out.println("Senha no banco: " + empresaOpt.get().getSenha());
+            if (empresaOpt.get().getSenha().equals(senha)) {
+                System.out.println("Login válido como EMPRESA");
+                return jwtUtil.generateToken(email, "EMPRESA");
+            } else {
+                System.out.println("Senha da empresa não bate.");
+            }
         }
 
         Optional<Cliente> clienteOpt = clienteRepo.findByEmail(email);
-        if (clienteOpt.isPresent() && clienteOpt.get().getSenha().equals(senha)) {
-            return jwtUtil.generateToken(email, "CLIENTE");
+        if (clienteOpt.isPresent()) {
+            System.out.println("Cliente encontrado: " + clienteOpt.get().getEmail());
+            System.out.println("Senha no banco: " + clienteOpt.get().getSenha());
+            if (clienteOpt.get().getSenha().equals(senha)) {
+                System.out.println("Login válido como CLIENTE");
+                return jwtUtil.generateToken(email, "CLIENTE");
+            } else {
+                System.out.println("Senha do cliente não bate.");
+            }
         }
 
+        System.out.println("Login falhou: Email ou senha inválidos.");
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email ou senha inválidos");
     }
 }

@@ -1,15 +1,13 @@
 package com.petagenda.agendamentosaas.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Data
@@ -17,17 +15,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Empresa {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
-
-    @Column(unique = true)
-    private String cnpj;
     private String email;
     private String senha;
+    private String cnpj;
+    private String endereco;
+    private String imageLogoUrl;
+
+    // Campos que estavam faltando
     private String cep;
     private String estado;
     private String cidade;
@@ -36,5 +36,7 @@ public class Empresa {
     private String numero;
     private String complemento;
 
-    private String imageLogoUrl;
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Servico> servicos;
 }
